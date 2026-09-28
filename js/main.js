@@ -1,73 +1,49 @@
-// Получаем модальное окно по id.
 const orderDialog = document.getElementById('order-dialog');
+const successMessage = document.querySelector('.success-message');
+let opener = null;
 
-// Получаем все кнопки заказа в карточках товаров.
-const orderButtons = document.querySelectorAll('.product-card__button');
-
-// Получаем кнопку закрытия модального окна.
-const closeDialogButton = document.getElementById('close-order-dialog');
-
-// Получаем скрытое поле, в которое будет записан выбранный товар.
-const selectedProductInput = document.getElementById('selected-product');
-
-// Перебираем все кнопки «Заказать».
-orderButtons.forEach((button) => {
+// Кнопки окна отделены от ссылок на страницу товара.
+document.querySelectorAll('[data-order-product]').forEach((button) => {
   button.addEventListener('click', () => {
-    // Получаем название товара из data-атрибута.
-    const productName = button.dataset.product;
-
-    // Записываем название товара в скрытое поле формы.
-    selectedProductInput.value = productName;
-
-    // Открываем модальное окно.
+    if (!orderDialog) return;
+    opener = button;
+    const form = orderDialog.querySelector('.order-form');
+    form.reset();
+    form.querySelectorAll('[aria-invalid]').forEach((field) => field.removeAttribute('aria-invalid'));
+    form.elements.product.value = button.dataset.orderProduct;
+    successMessage.hidden = true;
     orderDialog.showModal();
   });
 });
+document.querySelector('[data-close-dialog]')?.addEventListener('click', () => orderDialog.close());
+orderDialog?.addEventListener('close', () => opener?.focus());
 
-// Закрываем модальное окно по кнопке «Закрыть».
-closeDialogButton.addEventListener('click', () => {
-  orderDialog.close();
-});
-// Получаем форму заявки.
-const orderForm = document.getElementById('order-form');
-
-// Получаем сообщение об успешной отправке.
-const successMessage = document.getElementById('success-message');
-
-// Обрабатываем отправку формы.
-orderForm.addEventListener('submit', (event) => {
-  // Отменяем стандартную отправку формы,
-  // потому что backend пока не подключён.
-  event.preventDefault();
-
-  // Сбрасываем предыдущие признаки ошибок.
-  const formElements = Array.from(orderForm.elements);
-
-  formElements.forEach((element) => {
-    if (element.willValidate) {
-      element.removeAttribute('aria-invalid');
-    }
-  });
-
-  // Проверяем встроенные HTML-ограничения формы.
-  if (!orderForm.checkValidity()) {
-    formElements.forEach((element) => {
-      if (element.willValidate && !element.checkValidity()) {
-        element.setAttribute('aria-invalid', 'true');
-      }
-    });
-
-    // Показываем стандартные сообщения браузера.
-    orderForm.reportValidity();
-    return;
+// Из URL принимается только товар, который есть в списке.
+const requestedProduct = new URLSearchParams(window.location.search).get('product');
+document.querySelectorAll('.order-form').forEach((form) => {
+  const product = form.elements.product;
+  if (requestedProduct && Array.from(product.options).some((option) => option.value === requestedProduct)) {
+    product.value = requestedProduct;
   }
-
-  // Показываем сообщение об успешной отправке.
-  successMessage.hidden = false;
-
-  // Очищаем форму.
-  orderForm.reset();
-
-  // Закрываем модальное окно.
-  orderDialog.close();
+  form.addEventListener('input', (event) => {
+    if (event.target.willValidate && event.target.checkValidity()) event.target.removeAttribute('aria-invalid');
+    successMessage.hidden = true;
+  });
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    successMessage.hidden = true;
+    const fields = Array.from(form.elements).filter((field) => field.willValidate);
+    fields.forEach((field) => {
+      field.removeAttribute('aria-invalid');
+      if (!field.checkValidity()) field.setAttribute('aria-invalid', 'true');
+    });
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    form.reset();
+    if (orderDialog?.contains(form)) orderDialog.close();
+    successMessage.hidden = false;
+    successMessage.focus();
+  });
 });

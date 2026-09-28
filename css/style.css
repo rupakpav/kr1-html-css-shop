@@ -352,3 +352,60 @@ html {
   color: var(--color-white);
   background-color: var(--color-primary);
 }
+
+/* 6. Итоговые страницы магазина и позиционирование */
+.hero__title { margin: 0; font-size: 48px; }
+.hero__eyebrow { color: var(--color-muted); }
+.hero__description { max-width: 650px; }
+.hero__actions, .product-card__actions, .product-index {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+}
+.product-card { position: relative; }
+.product-card__actions { margin-top: auto; }
+.product-card__image { width: 100%; height: 150px; object-fit: contain; }
+.product-card__badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  color: var(--color-white);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+}
+.product-card--new { border-color: var(--color-primary); }
+.product-card__price, .product-detail__price { font-size: 20px; font-weight: 700; }
+.catalog-filters { position: sticky; top: var(--space-md); align-self: start; }
+.product-detail {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) minmax(0, 1.3fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  padding: var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  scroll-margin-top: var(--space-lg);
+}
+.product-detail__figure { margin: 0; }
+.product-detail__image { width: 100%; height: auto; }
+.product-detail__caption, .catalog-filters__hint { color: var(--color-muted); font-size: 14px; }
+.product-detail__title { margin-top: 0; }
+.product-table { width: 100%; border-collapse: collapse; margin-bottom: var(--space-lg); }
+.product-table__caption { text-align: left; font-weight: 700; padding-bottom: var(--space-sm); }
+.product-table__cell { text-align: left; padding: var(--space-sm); border: 1px solid var(--color-border); }
+.section--form { max-width: 660px; }
+.order-form__label--inline { display: inline; }
+.order-form__checkbox:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+.order-form__input[aria-invalid="true"],
+.order-form__select[aria-invalid="true"],
+.order-form__textarea[aria-invalid="true"] { border-color: var(--color-danger); }
+.order-form__checkbox[aria-invalid="true"] { outline: 2px solid var(--color-danger); }
+.order-dialog { max-height: calc(100vh - 32px); overflow-y: auto; }
+.order-form__actions { margin-bottom: var(--space-md); }
+.success-message { max-width: var(--container-width); margin: var(--space-lg) auto; padding: var(--space-md); color: var(--color-success); background: var(--color-success-bg); }
+.back-to-top { position: fixed; right: var(--space-md); bottom: var(--space-md); z-index: 10; }
+.site-footer { padding-bottom: 80px; }
+.advantages-list__item, .contact-list__item { margin-bottom: var(--space-sm); }
