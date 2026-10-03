@@ -117,12 +117,6 @@ GitHub Pages: https://rupakpav.github.io/kr1-html-css-shop/
 - `button` — кнопка;
 - `site-footer` — подвал сайта.
 
-## Практическая работа №8
-
-Проект доработан для КР №1 «HTML и CSS: разработка многостраничного сайта».
-Название магазина — mouseshop. КР №2 предполагает отдельный репозиторий
-с Bootstrap или другим CSS-фреймворком; в этом проекте фреймворки не используются.
-
 ### Просмотр и проверка
 
 Откройте `index.html` в браузере или запустите в папке проекта
@@ -160,18 +154,3 @@ GitHub Pages: https://rupakpav.github.io/kr1-html-css-shop/
 - `product-index` — переходы к моделям;
 - `back-to-top` — фиксированная кнопка;
 - `success-message` — результат проверки заявки.
-
-### Источники описаний новых моделей
-
-- [Logitech G305](https://www.logitechg.com/en-us/shop/p/g305-lightspeed-wireless-gaming-mouse).
-- [Razer Basilisk V3](https://www.razer.com/newsroom/product-news/the-new-razer-basilisk-v3-everything-a-gamer-wants-in-a-customizable-gaming-mouse).
-- [HyperX Pulsefire Haste 2](https://uk.hyperx.com/products/hyperx-pulsefire-haste-2-gaming-mouse).
-
-### Сдача
-
-Репозиторий для СДО: https://github.com/rupakpav/kr1-html-css-shop
-
-Опубликованный сайт: https://rupakpav.github.io/kr1-html-css-shop/
-
-Проверка в браузере и проверка опубликованной версии должны быть выполнены
-перед сдачей; наличие исходных файлов само по себе не подтверждает публикацию.
